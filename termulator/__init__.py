@@ -1,6 +1,6 @@
 import pygame
+import subprocess
 
-# create a window
 class Termulator:
     def __init__(self):
         pygame.init()
@@ -14,8 +14,20 @@ class Termulator:
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()
+                
 
+            self.run_command("cd repos")
+
+    def run_command(self, command: str):
+        # run the command and return the output
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
+        output, error = process.communicate()
+        return output
+    
+    def print_to_screen(self, text:str) -> None:
+        pass
 
 if __name__ == "__main__":
     termulator = Termulator()
     termulator.run()
+    # test run_command()
